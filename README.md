@@ -1,5 +1,5 @@
 # Token-Based Authentication System Frontend
-This is the Frontend repository for the Token-Based Authentication System project. It uses Vue.js for the frontend framework, Javascript, HTML, and CSS.
+This is the Frontend repository for the Token-Based Authentication System project. It uses Vue.js for the frontend framework, Javascript, and HTML.
 
 ## Getting Started
 

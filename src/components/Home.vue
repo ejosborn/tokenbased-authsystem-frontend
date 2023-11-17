@@ -1,13 +1,17 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button id="loginBtn">
-      Login
-    </button>
+    <router-link to="/login">
+      <button id="loginBtn">
+        Login
+      </button>
+    </router-link>
 
-    <button id="RegisterBtn">
-      Register
-    </button>
+    <router-link to="/register">
+      <button id="RegisterBtn">
+        Register
+      </button>
+    </router-link>
   </div>
 </template>
 
