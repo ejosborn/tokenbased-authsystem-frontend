@@ -21,7 +21,13 @@ npm run lint
 
 ## Usage
 
-- The API for this project is [here](https://github.com/ejosborn/tokenbased-authsystem-api)
+### Register a User
+
+- When a user is registering, the user picks a username and a password, then re-enters the password to verify the password. The frontend will then make sure both password fields match, then it will check to see if the username exists in the users database. If the username does exist, the software will tell the user to pick another username. If the username does not exist in the database, the backend will enter the information in the database and then will instruct the user to log in with their username and password.
+
+### User Log In
+
+- When a user logs in, the frontend would make an HTTP request to the backend and checks if the username and password are in the users database. If it is, the HTTP request returns a valid JSON Web Token so that when they log in, the system knows that it is a valid user. If the username and/or password is incorrect, an error is returned and shows the user the error.
 
 ## Author
 
