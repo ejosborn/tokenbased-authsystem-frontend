@@ -1,17 +1,28 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <Home msg="Welcome to Token-Based Authentication System" />
-  <div id="app">
-  </div>
+  <h1 v-if="!clicked">Welcome to Token-Based Authentication System</h1>
+  <button v-if="!clicked" @click="goToRegister">Register</button>
+  <button v-if="!clicked" @click="goToLogin">Log In</button>
+  <router-view></router-view>
 </template>
 
 <script>
-import Home from './components/Home.vue'
-
 export default {
-  name: 'App',
-  components: {
-    Home
+  data() {
+    return {
+      clicked: false,
+    }
+  },
+  name: "App",
+  methods: {
+    goToRegister() {
+      this.$router.push("/register")
+      this.clicked = true
+    },
+    goToLogin() {
+      this.$router.push("/login")
+      this.clicked = true
+    },
   }
 }
 </script>
