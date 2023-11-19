@@ -7,20 +7,41 @@
         </div>
         <div class="input-container" id="passInput">
             <p class="label-pass">Password:</p>
-            <input type="password" v-model="password" />
+            <input type="password" v-model="pass1" />
         </div>
         <div class="input-container" id="verifypassInput">
             <p class="label-confirmPass">Confirm Password:</p>
-            <input type="password" v-model="verifyPass" />
+            <input type="password" v-model="pass2" />
         </div>
-        <button id="loginBtn">Register</button>
+        <button @click="confirmPass" id="loginBtn">Register</button>
+
+        <p v-if="passMatch">Passwords do not match</p>
     </div>
 </template>
 
 <script>
 
 export default {
-    //logic
+    data() {
+        return {
+            pass1: '',
+            pass2: '',
+        }
+    },
+
+    computed: {
+        passMatch() {
+            return this.pass1 === this.pass2
+        }
+    },
+
+    methods: {
+        confirmPass() {
+            if (!(this.passMatch)) {
+                alert("Passwords do not match. Please re-enter password")
+            }
+        },
+    }
 }
 </script>
 
