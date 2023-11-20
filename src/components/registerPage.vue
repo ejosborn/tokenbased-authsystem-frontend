@@ -14,8 +14,6 @@
             <input type="password" v-model="pass2" />
         </div>
         <button @click="confirmPass" id="loginBtn">Register</button>
-
-        <p v-if="passMatch">Passwords do not match</p>
     </div>
 </template>
 
@@ -60,7 +58,7 @@ export default {
                 },
                 body: JSON.stringify(userData)
             })
-                //responsilble for handling backend response
+                //responsible for handling backend response
                 .then(response => {
                     if (response.ok) {
                         //successful registration
