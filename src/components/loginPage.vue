@@ -57,6 +57,32 @@ export default {
             })
     },
     fetchProtectedResource(token) {
+        const protectedAPI = process.env.VUE_APP_API_URL + '/protected'
+
+        fetch(protectedAPI, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        })
+            //handles the response from the backend
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    return response.json().then(error => Promise.reject(error))
+                }
+            })
+
+            //outputs the response from the backend
+            .then(data => {
+                alert(data)
+            })
+            .catch(error => {
+                alert("Error:" + error)
+            })
     }
 }
 </script>
