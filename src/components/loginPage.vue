@@ -7,15 +7,57 @@
         </div>
         <div class="input-container" id="passInput">
             <p class="label-pass">Password:</p>
-            <input type="password" v-model="password" />
+            <input type="password" v-model="passwordInput" />
         </div>
         <button id="loginBtn">Log In</button>
     </div>
 </template>
 
 <script>
+
+
 export default {
-    //logic
+    loginUser() {
+        const userData = {
+            username: this.usernameInput,
+            password: this.passwordInput
+        }
+
+        const loginAPI = process.env.VUE_APP_API_URL + '/login'
+
+        //making HTTP post request
+        fetch(loginAPI, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+
+            .then(response => {
+                if (response.ok) {
+                    //successful login
+                    return response.json()
+                }
+                else {
+                    //handle login error
+                    return response.json().then(error => Promise.reject(error))
+                }
+            })
+
+            //handles outputting message
+            .then(data => {
+                const token = data.access_token;
+
+                //includes jwtToken in the header to successfully pass the protected login
+                this.fetchProtectedResource(token)
+            })
+            .catch(error => {
+                alert("Error:" + error)
+            })
+    },
+    fetchProtectedResource(token) {
+    }
 }
 </script>
 
