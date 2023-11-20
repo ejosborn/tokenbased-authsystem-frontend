@@ -20,7 +20,6 @@
 </template>
 
 <script>
-
 export default {
     data() {
         return {
@@ -40,7 +39,47 @@ export default {
             if (!(this.passMatch)) {
                 alert("Passwords do not match. Please re-enter password")
             }
+            else {
+                this.registerUser()
+            }
+
         },
+
+        registerUser() {
+            const userData = {
+                username: this.usernameInput,
+                password: this.pass1
+            }
+
+            const registerAPI = process.env.VUE_APP_API_URL + '/register'
+            //making HTTP post request
+            fetch(registerAPI, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+                //responsilble for handling backend response
+                .then(response => {
+                    if (response.ok) {
+                        //successful registration
+                        return response.json()
+                    }
+                    else {
+                        //handle registration error
+                        return response.json().then(error => Promise.reject(error))
+                    }
+                })
+
+                //responsible for outputting the response from the backend
+                .then(data => {
+                    alert(data)
+                })
+                .catch(error => {
+                    alert("Error:", error)
+                })
+        }
     }
 }
 </script>
