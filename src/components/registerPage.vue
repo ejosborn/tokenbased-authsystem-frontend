@@ -75,7 +75,7 @@ export default {
                     alert(data)
                 })
                 .catch(error => {
-                    alert("Error:", error)
+                    alert("Error: " + error)
                 })
         }
     }
