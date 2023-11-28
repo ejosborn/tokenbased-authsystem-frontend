@@ -1,6 +1,15 @@
 # Token-Based Authentication System Frontend
 This is the Frontend repository for the Token-Based Authentication System project. It uses Vue.js for the frontend framework, Javascript, and HTML.
 
+## API Repository
+
+- You can find the API repository [here](https://github.com/ejosborn/tokenbased-authsystem-api)
+
+## Project Status
+
+- I'm currently taking a break on this project to learn Go, but plan on building a home landing page for the user once successfully logged-in in the near future
+
+
 ## Getting Started
 
 ### Installing
@@ -33,8 +42,3 @@ npm run lint
 
 * **Ellis Osborn** - [Ejosborn](https://github.com/ejosborn)
 
-### Project Status
-
-- I am currently working on this project, so code will be committed often.
-
-- You can find the API repository [here](https://github.com/ejosborn/tokenbased-authsystem-api)
