@@ -72,10 +72,10 @@ export default {
 
                 //responsible for outputting the response from the backend
                 .then(data => {
-                    alert(data)
+                    alert(data.message)
                 })
-                .catch(error => {
-                    alert("Error: " + error)
+                .catch(data => {
+                    alert("Error: " + data.error)
                 })
         }
     }
