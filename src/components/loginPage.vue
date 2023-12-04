@@ -9,82 +9,85 @@
             <p class="label-pass">Password:</p>
             <input type="password" v-model="passwordInput" />
         </div>
-        <button id="loginBtn">Log In</button>
+        <button @click="loginUser" id="loginBtn">Log In</button>
     </div>
 </template>
 
 <script>
-
-
 export default {
-    loginUser() {
-        const userData = {
-            username: this.usernameInput,
-            password: this.passwordInput
-        }
-
-        const loginAPI = process.env.VUE_APP_API_URL + '/login'
-
-        //making HTTP post request
-        fetch(loginAPI, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        })
-
-            .then(response => {
-                if (response.ok) {
-                    //successful login
-                    return response.json()
-                }
-                else {
-                    //handle login error
-                    return response.json().then(error => Promise.reject(error))
-                }
-            })
-
-            //handles outputting message
-            .then(data => {
-                const token = data.access_token;
-
-                //includes jwtToken in the header to successfully pass the protected login
-                this.fetchProtectedResource(token)
-            })
-            .catch(error => {
-                alert("Error:" + error)
-            })
+    data() {
+        return {
+            user: '',
+            pass: '',
+        };
     },
-    fetchProtectedResource(token) {
-        const protectedAPI = process.env.VUE_APP_API_URL + '/protected'
 
-        fetch(protectedAPI, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }
-        })
-            //handles the response from the backend
-            .then(response => {
-                if (response.ok) {
-                    return response.json()
-                }
-                else {
-                    return response.json().then(error => Promise.reject(error))
-                }
-            })
+    methods: {
+        loginUser() {
+            const userData = {
+                username: this.usernameInput,
+                password: this.passwordInput,
+            };
 
-            //outputs the response from the backend
-            .then(data => {
-                alert(data)
+            const loginAPI = process.env.VUE_APP_API_URL + '/login';
+
+            // making HTTP post request
+            fetch(loginAPI, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
             })
-            .catch(error => {
-                alert("Error:" + error)
+                .then((response) => {
+                    if (response.ok) {
+                        // successful login
+                        return response.json();
+                    } else {
+                        // handle login error
+                        return response.json().then((error) => Promise.reject(error));
+                    }
+                })
+                .then((data) => {
+                    const token = data.access_token;
+
+                    // includes jwtToken in the header to successfully pass the protected login
+                    this.fetchProtectedResource(token);
+                })
+                .catch((data) => {
+                    alert("Error:" + data.error);
+                });
+        },
+
+        fetchProtectedResource(token) {
+            const protectedAPI = process.env.VUE_APP_API_URL + '/protected';
+
+            fetch(protectedAPI, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                },
             })
-    }
-}
+                // handles the response from the backend
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        return response.json().then((error) => Promise.reject(error));
+                    }
+                })
+                // outputs the response from the backend
+                .then((data) => {
+                    console.log(data)
+                    alert(`Congrats ${this.usernameInput}, you have successfully signed in`)
+                })
+                .catch((data) => {
+                    alert("Error: Not connecting" + data.error);
+                });
+        },
+    },
+};
 </script>
 
 <style scoped>
